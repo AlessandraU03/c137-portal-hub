@@ -4,6 +4,11 @@ Esta es una aplicación web interactiva desarrollada para la prueba técnica. Se
 
 El proyecto está construido bajo **React (v19)**, **TypeScript**, **React Router**, **Tailwind CSS (v4)** y **TanStack Query (v5)**.
 
+
+## 🌐 Despliegue en Producción
+La aplicación se encuentra completamente desplegada y funcional en vivo en la plataforma Railway. Puedes acceder a ella a través del siguiente enlace:
+ **[c137-portal-hub-production.up.railway.app](https://c137-portal-hub-production.up.railway.app)**
+
 ---
 
 ## 🚀 Instrucciones de Ejecución
@@ -16,7 +21,7 @@ Asegúrate de tener instalado [Node.js](https://nodejs.org/) (versión 18 o supe
 ### 2. Navegar al directorio de la aplicación
 Abre una terminal en la raíz de la carpeta del proyecto:
 ```bash
-cd "C:\c137-portal-hub.git"
+cd "C:\c137-portal-hub"
 ```
 
 ### 3. Instalar las dependencias del proyecto
@@ -33,19 +38,20 @@ npm run dev
 Una vez iniciado, abre tu navegador e ingresa a la dirección local que imprima la consola (usualmente es **http://localhost:5173**).
 
 
+
 ---
 
-## 🛠️ Requisitos Técnicos 
+## 🛠️ Requisitos Técnicos Cumplidos (Checklist)
 
-A continuación se detalla cómo y dónde se implementó cada requisito técnico esperado:
+A continuación detallo cómo y dónde implementé cada requisito técnico esperado:
 
-* **React (v19) y TypeScript:** Toda la aplicación está desarrollada con componentes funcionales de React 19 y tipado estático estricto de TypeScript (sin uso de `any`), garantizando seguridad y autocompletado en el desarrollo.
-* **Componentes Reutilizables:** Diseñados e implementados componentes atómicos y reutilizables globales bajo `src/shared/components/` (como `SearchBar.tsx`, `Skeleton.tsx` para estados de carga, `ErrorBoundary.tsx` y `ErrorState.tsx`).
-* **Uso de Hooks:** Empleamos hooks personalizados de dos tipos: hooks de consumo de datos (`useCharacters.ts`, `useLocations.ts`, `useEpisodes.ts`) y hooks ViewModels para la presentación (`useCharactersViewModel.ts`, etc.).
-* **Consumo Correcto de APIs:** Implementamos un cliente HTTP base desacoplado en `src/shared/api/client.ts` con manejo de errores HTTP nativos y tipado genérico para respuestas estructuradas y paginadas.
-* **Manejo de Errores:** Atrapado de excepciones en tiempo de ejecución por medio del componente [ErrorBoundary.tsx] y pantallas de recuperación interactivas con [ErrorState.tsx] para reintentar la llamada de API fallida.
-* **Estados de Carga:** Skeletons de carga animados (`Skeleton.tsx`) integrados en todas las vistas de listados y dossiers para dar un feedback inmediato al usuario durante la descarga asíncrona.
-* **Código Organizado:** Estructurado bajo Clean Architecture modularizada por dominios (cada carpeta autocontiene su dominio, datos y vista).
+* **React (v19) y TypeScript:** Desarrollé toda la aplicación con componentes funcionales de React 19 y tipado estático estricto de TypeScript (sin uso de `any`), garantizando seguridad y autocompletado en el desarrollo.
+* **Componentes Reutilizables:** Diseñé e implementé componentes atómicos y reutilizables globales bajo `src/shared/components/` (como `SearchBar.tsx`, `Skeleton.tsx` para estados de carga, `ErrorBoundary.tsx` y `ErrorState.tsx`).
+* **Uso de Hooks:** Empleé hooks personalizados de dos tipos: hooks de consumo de datos (`useCharacters.ts`, `useLocations.ts`, `useEpisodes.ts`) y hooks ViewModels para la presentación (`useCharactersViewModel.ts`, etc.).
+* **Consumo Correcto de APIs:** Implementé un cliente HTTP base desacoplado en `src/shared/api/client.ts` con manejo de errores HTTP nativos y tipado genérico para respuestas estructuradas y paginadas.
+* **Manejo de Errores:** Atrapé excepciones en tiempo de ejecución por medio del componente [ErrorBoundary.tsx] y pantallas de recuperación interactivas con [ErrorState.tsx] para reintentar la llamada de API fallida.
+* **Estados de Carga:** Integré skeletons de carga animados (`Skeleton.tsx`) en todas las vistas de listados y dossiers para dar un feedback inmediato al usuario durante la descarga asíncrona.
+* **Código Organizado:** Estructuré la aplicación bajo Clean Architecture modularizada por dominios (cada carpeta autocontiene su dominio, datos y vista).
 
 ---
 
@@ -67,11 +73,11 @@ src/
 * **Cohesión Alta y Acoplamiento Débil:** Cada característica (como `characters` o `locations`) es completamente independiente. Los cambios en los requerimientos de dimensiones no tocan archivos de personajes, minimizando efectos secundarios imprevistos y facilitando el desarrollo paralelo en equipos grandes.
 
 ### Estructura Interna de Cada Módulo (Subcapas de Clean Architecture)
-Dentro de cada carpeta de módulo, la lógica se separa estrictamente de la siguiente manera:
+Dentro de cada carpeta de módulo, separé estrictamente la lógica de la siguiente manera:
 1. **`domain/` (Capa de Dominio):** Contiene tipos e interfaces puras de TypeScript (ej: `location.types.ts`). Es el núcleo del negocio y no depende de ninguna librería o framework externo.
 2. **`data/` (Capa de Datos):**
    * **`api.ts`:** Se encarga de las llamadas HTTP directas a la API externa.
-   * **`mapper.ts` (Mapeo de Datos):** Traduce el formato de respuesta del servidor (DTO) al modelo esperado por nuestro dominio. Decora los datos agregando estilos de Tailwind CSS, clasificaciones de peligro ("Riesgo Moderado", "Nivel de Peligro: Crítico") y botones de acción dinámicos. **Esto evita cablear lógica de condicionales de estilos complejas dentro del código JSX de la vista, manteniendo la presentación limpia.**
+   * **`mapper.ts` (Mapeo de Datos):** Traduce el formato de respuesta del servidor (DTO) al modelo esperado por el dominio. Decora los datos agregando estilos de Tailwind CSS, clasificaciones de peligro ("Riesgo Moderado", "Nivel de Peligro: Crítico") y botones de acción dinámicos. **Esto evita cablear lógica de condicionales de estilos complejas dentro del código JSX de la vista, manteniendo la presentación limpia.**
 3. **`presentation/` (Capa de Presentación):**
    * **`hooks/` (Comportamiento):** Contiene el hook de React Query para la caché del servidor (`useLocations.ts`) y el hook **ViewModel** (`useLocationsViewModel.ts`), encargado de aislar y controlar todos los estados locales, sincronización de la URL y eventos de la UI.
    * **`pages/` (La Vista):** Componentes JSX declarativos (ej: `LocationsPage.tsx`) que consumen al ViewModel y están 100% libres de lógica de React (`useState`, `useEffect`).
@@ -86,13 +92,13 @@ Una de las decisiones más críticas del proyecto fue implementar el patrón **M
 En aplicaciones estándar de React, es muy común encontrar componentes "gordos" (*fat components*), donde el enrutamiento (`useSearchParams`, `useNavigate`), el estado local (`useState`), los efectos secundarios (`useEffect`), la manipulación de arrays (`useMemo`) y las consultas HTTP (`useQuery`) se programan dentro del mismo archivo JSX. Esto viola el principio de responsabilidad única (Single Responsibility Principle) y hace que las vistas sean difíciles de leer, probar y mantener.
 
 ### La Solución Implementada (MVVM):
-Desacoplamos por completo la lógica de presentación del marcado JSX dividiendo el desarrollo en tres entidades diferenciadas:
+Desacoplé por completo la lógica de presentación del marcado JSX dividiendo el desarrollo en tres entidades diferenciadas:
 1. **Model (Modelo):** Definido por las interfaces del dominio (`domain/`) y las llamadas/transformaciones de datos (`data/`).
 2. **View (Vista):** Los componentes y páginas visuales (ej: `LocationsPage.tsx`). Su única responsabilidad es estructurar el maquetado (JSX) y aplicar clases de estilo (Tailwind CSS) consumiendo propiedades de lectura provistas por el ViewModel.
 3. **ViewModel (Vista-Modelo):** Hooks controladores personalizados (ej: `useLocationsViewModel.ts`). Administran los inputs temporales de formularios, coordinan la paginación, sincronizan la dirección URL del navegador con los filtros y deciden cuándo actualizar el término de búsqueda para disparar las consultas de datos.
 
-### ¿Por qué se escogió específicamente MVVM para esta prueba técnica?
-* **Mantenibilidad e Independencia de UI:** Si en el futuro se decide rediseñar la interfaz (ej: migrar de Tailwind a Material UI), el cambio se limita a los archivos de la **Vista**. La lógica en el **ViewModel** permanece intacta y funcional, ya que no tiene dependencia directa con el código JSX.
+### ¿Por qué escogí específicamente MVVM para esta prueba técnica?
+* **Mantenibilidad e Independencia de UI:** Si en el futuro decido rediseñar la interfaz (ej: migrar de Tailwind a Material UI), el cambio se limita a los archivos de la **Vista**. La lógica en el **ViewModel** permanece intacta y funcional, ya que no tiene dependencia directa con el código JSX.
 * **Testeabilidad (Unit Testing):** La lógica de filtrado, búsquedas, ordenaciones y reseteos se puede probar mediante tests unitarios rápidos sobre React Hooks (con `@testing-library/react-hooks`) de forma aislada, sin necesidad de renderizar o montar el árbol del DOM visual.
 * **Claridad del Código:** Al separar la lógica de presentación, los archivos JSX son limpios y concisos (todos se mantienen por debajo de las 180 líneas de código), lo que agiliza la lectura y facilita la detección de errores.
 
@@ -100,7 +106,7 @@ Desacoplamos por completo la lógica de presentación del marcado JSX dividiendo
 
 ## 🧠 Gestión del Estado
 
-1. **Estado del Servidor (Caché asíncrono):** Administrado con **TanStack Query (React Query) v5**. Nos permite cachear los listados del multiverso y los dossiers detallados de los personajes. Al navegar entre pantallas, los datos se sirven instantáneamente desde la caché mientras se actualizan silenciosamente en segundo plano, proporcionando una experiencia veloz al usuario y reduciendo la carga en los servidores de la API.
+1. **Estado del Servidor (Caché asíncrono):** Administrado con **TanStack Query (React Query) v5**. Esto permite cachear los listados del multiverso y los dossiers detallados de los personajes. Al navegar entre pantallas, los datos se sirven instantáneamente desde la caché mientras se actualizan silenciosamente en segundo plano, proporcionando una experiencia veloz al usuario y reduciendo la carga en los servidores de la API.
 2. **Estado Global (Favoritos):** Mantenido mediante **React Context API** (`FavoritesContext.tsx`). Provee un flujo reactivo para el contador de la barra superior. Su lógica se sincroniza automáticamente con el almacenamiento del navegador (`localStorage`) para que los expedientes marcados persistan incluso si el usuario cierra el navegador.
 3. **Estado de UI local:** Variables locales gestionadas dentro del hook del ViewModel para capturar de forma reactiva pero controlada las acciones del usuario.
 
