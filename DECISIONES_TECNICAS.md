@@ -12,7 +12,7 @@ A continuación se detalla cómo y dónde se implementó cada requisito técnico
 * **Componentes Reutilizables:** Diseñados e implementados componentes atómicos y reutilizables globales bajo `src/shared/components/` (como `SearchBar.tsx`, `Skeleton.tsx` para estados de carga, `ErrorBoundary.tsx` y `ErrorState.tsx`).
 * **Uso de Hooks:** Empleamos hooks personalizados de dos tipos: hooks de consumo de datos (`useCharacters.ts`, `useLocations.ts`, `useEpisodes.ts`) y hooks ViewModels para la presentación (`useCharactersViewModel.ts`, etc.).
 * **Consumo Correcto de APIs:** Implementamos un cliente HTTP base desacoplado en `src/shared/api/client.ts` con manejo de errores HTTP nativos y tipado genérico para respuestas estructuradas y paginadas.
-* **Manejo de Errores:** Atrapado de excepciones en tiempo de ejecución por medio del componente [ErrorBoundary.tsx](file:///C:/Users/aless/OneDrive/Documentos/9NOCUATRIMESTRE/estadia/rick/src/shared/components/ErrorBoundary.tsx) y pantallas de recuperación interactivas con [ErrorState.tsx](file:///C:/Users/aless/OneDrive/Documentos/9NOCUATRIMESTRE/estadia/rick/src/shared/components/ErrorState.tsx) para reintentar la llamada de API fallida.
+* **Manejo de Errores:** Atrapado de excepciones en tiempo de ejecución por medio del componente [ErrorBoundary.tsx] y pantallas de recuperación interactivas con [ErrorState.tsx] para reintentar la llamada de API fallida.
 * **Estados de Carga:** Skeletons de carga animados (`Skeleton.tsx`) integrados en todas las vistas de listados y dossiers para dar un feedback inmediato al usuario durante la descarga asíncrona.
 * **Código Organizado:** Estructurado bajo Clean Architecture modularizada por dominios (cada carpeta autocontiene su dominio, datos y vista).
 
@@ -124,11 +124,3 @@ Disparamos dos estrategias distintas para optimizar las peticiones HTTP y mejora
 
 ---
 
-## 💥 7. Desafíos Técnicos Encontrados y Soluciones
-
-* **Conflicto del Foco en Autocompletado (`onBlur` vs `onClick`):**
-  - *El reto:* Al dar clic a una sugerencia del buscador para navegar a su detalle, el evento `onBlur` del input se ejecutaba antes, ocultando el menú de sugerencias inmediatamente e impidiendo que se completara el clic de redirección.
-  - *La solución:* Reemplazamos el evento `onClick` por `onMouseDown` con `e.preventDefault()`. Esto nos permitió capturar la acción del usuario y realizar la navegación mediante React Router antes de que el campo de texto perdiera el foco.
-* **Caché Persistente de Favicon en Navegadores:**
-  - *El reto:* Los navegadores web cachean los favicons de manera sumamente agresiva. El favicon original de Vite (`favicon.svg`) persistía en la pestaña a pesar de cambiar los meta tags.
-  - *La solución:* Eliminamos el recurso SVG original e implementamos un archivo binario `.ico` estándar (`favicon.ico`) con el recorte 1:1 perfecto de la silueta del portal. Esto forzó a los navegadores a invalidar su caché y refrescar de inmediato la pestaña del navegador con la identidad cuántica del portal.

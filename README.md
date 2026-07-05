@@ -16,7 +16,7 @@ Asegúrate de tener instalado [Node.js](https://nodejs.org/) (versión 18 o supe
 ### 2. Navegar al directorio de la aplicación
 Abre una terminal en la raíz de la carpeta del proyecto:
 ```bash
-cd "C:\Users\aless\OneDrive\Documentos\9NOCUATRIMESTRE\estadia\rick"
+cd "C:\c137-portal-hub.git"
 ```
 
 ### 3. Instalar las dependencias del proyecto
@@ -35,7 +35,7 @@ Una vez iniciado, abre tu navegador e ingresa a la dirección local que imprima 
 
 ---
 
-## 🛠️ Requisitos Técnicos Cumplidos (Checklist)
+## 🛠️ Requisitos Técnicos 
 
 A continuación se detalla cómo y dónde se implementó cada requisito técnico esperado:
 
